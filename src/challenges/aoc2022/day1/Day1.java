@@ -15,7 +15,6 @@ public class Day1 {
         List<Integer> lul = new ArrayList<>();
         String st;
         while ((st = br.readLine()) != null) {
-            // Print the string
             if (st.length() > 0) {
                 numb += Integer.parseInt(st);
             }

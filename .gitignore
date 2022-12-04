@@ -21,3 +21,13 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/.idea/.gitignore
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/out/production/adventofcode/challenges/aoc2022/day1/day1-data.txt
+/out/production/adventofcode/challenges/aoc2022/day2/day2-data.txt
+/out/production/adventofcode/challenges/aoc2022/day3/day3-data.txt
+/out/production/adventofcode/challenges/aoc2022/day3/demo.txt
+/out/production/adventofcode/challenges/aoc2022/day4/day4-data.txt
+/out/production/adventofcode/challenges/aoc2022/day4/demo.txt
