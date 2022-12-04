@@ -18,17 +18,17 @@ public class Day4 {
         String st;
         while ((st = br.readLine()) != null) {
             String[] split = st.split(",");
-            String[] elf1 = split[0].split("-");
-            String[] elf2 = split[1].split("-");
+            String[] e1 = split[0].split("-");
+            String[] e2 = split[1].split("-");
 
-            List<Integer> elf1Range = getNumbersUsingIntStreamRangeClosed(Integer.parseInt(elf1[0]), Integer.parseInt(elf1[1]));
-            List<Integer> elf2Range = getNumbersUsingIntStreamRangeClosed(Integer.parseInt(elf2[0]), Integer.parseInt(elf2[1]));
+            List<Integer> e1Range = getNumbersInBetween(Integer.parseInt(e1[0]), Integer.parseInt(e1[1]));
+            List<Integer> e2Range = getNumbersInBetween(Integer.parseInt(e2[0]), Integer.parseInt(e2[1]));
 
-            if (isInRange(elf1Range, elf2Range)) {
+            if (isInRange(e1Range, e2Range)) {
                 count++;
             }
 
-            if (part2(elf1Range, elf2Range)) {
+            if (part2(e1Range, e2Range)) {
                 count2++;
             }
         }
@@ -37,29 +37,29 @@ public class Day4 {
         System.out.println(count2);
     }
 
-    private static boolean isInRange(List<Integer> elf1, List<Integer> elf2) {
-        int elf1Start = elf1.get(0);
-        int elf2Start = elf2.get(0);
-        int elf1End = elf1.get(elf1.size() - 1);
-        int elf2End = elf2.get(elf2.size() - 1);
+    private static boolean isInRange(List<Integer> e1, List<Integer> e2) {
+        int e1Start = e1.get(0);
+        int e2Start = e2.get(0);
+        int d1End = e1.get(e1.size() - 1);
+        int e2End = e2.get(e2.size() - 1);
 
-        if (elf1Start <= elf2Start && elf1End >= elf2End) {
+        if (e1Start <= e2Start && d1End >= e2End) {
             return true;
         }
 
-        return elf2Start <= elf1Start && elf2End >= elf1End;
+        return e2Start <= e1Start && e2End >= d1End;
     }
 
-    private static boolean part2(List<Integer> elf1, List<Integer> elf2) {
-        for (Integer l1 : elf1) {
-            for (Integer l2 : elf2) {
+    private static boolean part2(List<Integer> e1, List<Integer> e2) {
+        for (Integer l1 : e1) {
+            for (Integer l2 : e2) {
                 if (l1.equals(l2)) {
                     return true;
                 }
             }
         }
-        for (Integer l1 : elf2) {
-            for (Integer l2 : elf1) {
+        for (Integer l1 : e2) {
+            for (Integer l2 : e1) {
                 if (l1.equals(l2)) {
                     return true;
                 }
@@ -68,7 +68,7 @@ public class Day4 {
         return false;
     }
 
-    private static List<Integer> getNumbersUsingIntStreamRangeClosed(int start, int end) {
+    private static List<Integer> getNumbersInBetween(int start, int end) {
         return IntStream.rangeClosed(start, end)
                 .boxed()
                 .collect(Collectors.toList());
