@@ -48,19 +48,19 @@ public class Day5 {
         int to = movement.get(2);
 
         List<String> fromContainer = ship.get(from);
-        List<String> containerToMovie = new ArrayList<>();
+        List<String> containerToMove = new ArrayList<>();
         for (int i = 0; i < move; i++) {
-            containerToMovie.add(fromContainer.get(0));
+            containerToMove.add(fromContainer.get(0));
             fromContainer.remove(0);
         }
         ship.put(from, fromContainer);
 
         if (c2) {
-            Collections.reverse(containerToMovie);
+            Collections.reverse(containerToMove);
         }
 
         List<String> toContainer = ship.get(to);
-        for (String s : containerToMovie) {
+        for (String s : containerToMove) {
             toContainer.add(0, s);
         }
         ship.put(to, toContainer);
@@ -80,18 +80,18 @@ public class Day5 {
     private static void getContainer(String s) {
         String line = s;
         Matcher m = Pattern.compile("\\[(.*?)]").matcher(s);
-        String lul = "";
+        String group;
         while (m.find()) {
-            lul = m.group();
+            group = m.group();
             int pos = (line.indexOf(m.group()) / 4) + 1;
             if (ship.get(pos) == null) {
                 List<String> strings = new ArrayList<>();
                 ship.put(pos, strings);
             }
             List<String> strings = ship.get(pos);
-            strings.add(lul);
+            strings.add(group);
             ship.put(pos, strings);
-            line = line.replaceFirst(lul, "0");
+            line = line.replaceFirst(group, "0");
         }
     }
 
