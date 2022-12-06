@@ -1,7 +1,6 @@
-import challenges.aoc2022.day4.Day4;
-import challenges.aoc2022.day5.Day5;
-
 import java.io.IOException;
+
+import challenges.aoc2022.day6.Day6;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -9,6 +8,7 @@ public class Main {
 //        Day2.day2();
 //        Day3.day3();
 //        Day4.day4();
-        Day5.day5();
+//        Day5.day5();
+        Day6.day6();
     }
 }
