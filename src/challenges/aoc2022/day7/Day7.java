@@ -11,11 +11,8 @@ import java.util.Map;
 public class Day7 {
 
     private static final String fileName = "src/challenges/aoc2022/day7/day7-data.txt";
-
-    private static HashMap<String, List<File>> fileSystem = new HashMap<>(); // String = directory, Integer filesize
-    private static HashMap<String, Integer> lul = new HashMap<>();
-
-    private static HashMap<String, Integer> lol = new HashMap<>();
+    private static final HashMap<String, List<File>> fileSystem = new HashMap<>();
+    private static final HashMap<String, Integer> pathWithTotalSize = new HashMap<>();
     private static String currentDir = "";
 
     public static void day7() throws IOException {
@@ -37,13 +34,13 @@ public class Day7 {
         }
         getSize();
 
-//        task1();
+        task1();
         task2();
     }
 
     private static void task1() {
         int sum = 0;
-        for (Map.Entry<String, Integer> entry : lol.entrySet()) {
+        for (Map.Entry<String, Integer> entry : pathWithTotalSize.entrySet()) {
             if (entry.getValue() < 100000) {
                 sum += entry.getValue();
             }
@@ -53,13 +50,12 @@ public class Day7 {
 
     private static void task2() {
         int totalSize = 70000000;
-        int usedSpace = lol.get("/");
-        int lul = totalSize - usedSpace;
-        HashMap<String, Integer> lil = new HashMap<>();
+        int totalUsedSpace = pathWithTotalSize.get("/");
+        int availableSpace = totalSize - totalUsedSpace;
         String curDir = "";
         int curSize = 0;
-        for (Map.Entry<String, Integer> entry : lol.entrySet()) {
-            int i = lul + entry.getValue();
+        for (Map.Entry<String, Integer> entry : pathWithTotalSize.entrySet()) {
+            int i = availableSpace + entry.getValue();
             if (i > 30000000) {
                 if (curDir.length() > 0) {
                     if ((entry.getValue()) < curSize) {
@@ -76,23 +72,24 @@ public class Day7 {
     }
 
     private static void getSize() {
+        HashMap<String, Integer> tmpList = new HashMap<>();
         for (Map.Entry<String, List<File>> entry : fileSystem.entrySet()) {
             int sum = 0;
             for (File file : entry.getValue()) {
                 sum += file.getSize();
             }
-            if (!lul.containsKey(entry.getKey())) {
-                lul.put(entry.getKey(), sum);
+            if (!tmpList.containsKey(entry.getKey())) {
+                tmpList.put(entry.getKey(), sum);
             }
         }
 
         for (Map.Entry<String, List<File>> entry : fileSystem.entrySet()) {
             int sum = 0;
-            for (Map.Entry<String, Integer> lul : lul.entrySet()) {
-                if (lul.getKey().contains(entry.getKey())) {
-                    sum += lul.getValue();
+            for (Map.Entry<String, Integer> ent : tmpList.entrySet()) {
+                if (ent.getKey().contains(entry.getKey())) {
+                    sum += ent.getValue();
                 }
-                lol.put(entry.getKey(), sum);
+                pathWithTotalSize.put(entry.getKey(), sum);
             }
         }
     }
@@ -138,9 +135,6 @@ public class Day7 {
             } else if (line.contains("ls")) {
                 return Types.LS;
             }
-        }
-        if (line.contains("dir")) {
-            return Types.DIR;
         }
         return null;
     }
