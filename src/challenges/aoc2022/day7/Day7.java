@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Day7 {
 
-    private static final String fileName = "src/challenges/aoc2022/day7/demo.txt";
+    private static final String fileName = "src/challenges/aoc2022/day7/day7-data.txt";
 
     private static HashMap<String, List<File>> fileSystem = new HashMap<>(); // String = directory, Integer filesize
     private static HashMap<String, Integer> lul = new HashMap<>();
@@ -59,10 +59,10 @@ public class Day7 {
         String curDir = "";
         int curSize = 0;
         for (Map.Entry<String, Integer> entry : lol.entrySet()) {
-            int i = entry.getValue() - lul;
+            int i = lul + entry.getValue();
             if (i > 30000000) {
                 if (curDir.length() > 0) {
-                    if ((lul - entry.getValue()) < curSize) {
+                    if ((entry.getValue()) < curSize) {
                         curSize = entry.getValue();
                         curDir = entry.getKey();
                     }
@@ -73,7 +73,6 @@ public class Day7 {
             }
         }
         System.out.println(curSize);
-        System.out.println(curDir);
     }
 
     private static void getSize() {
