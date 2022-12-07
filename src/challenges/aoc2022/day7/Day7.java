@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Day7 {
 
-    private static final String fileName = "src/challenges/aoc2022/day7/day7-data.txt";
+    private static final String fileName = "src/challenges/aoc2022/day7/demo.txt";
 
     private static HashMap<String, List<File>> fileSystem = new HashMap<>(); // String = directory, Integer filesize
     private static HashMap<String, Integer> lul = new HashMap<>();
@@ -36,14 +36,44 @@ public class Day7 {
             count++;
         }
         getSize();
+
+//        task1();
+        task2();
+    }
+
+    private static void task1() {
         int sum = 0;
         for (Map.Entry<String, Integer> entry : lol.entrySet()) {
-
             if (entry.getValue() < 100000) {
                 sum += entry.getValue();
             }
-            System.out.println(sum);
         }
+        System.out.println(sum);
+    }
+
+    private static void task2() {
+        int totalSize = 70000000;
+        int usedSpace = lol.get("/");
+        int lul = totalSize - usedSpace;
+        HashMap<String, Integer> lil = new HashMap<>();
+        String curDir = "";
+        int curSize = 0;
+        for (Map.Entry<String, Integer> entry : lol.entrySet()) {
+            int i = entry.getValue() - lul;
+            if (i > 30000000) {
+                if (curDir.length() > 0) {
+                    if ((lul - entry.getValue()) < curSize) {
+                        curSize = entry.getValue();
+                        curDir = entry.getKey();
+                    }
+                } else {
+                    curSize = entry.getValue();
+                    curDir = entry.getKey();
+                }
+            }
+        }
+        System.out.println(curSize);
+        System.out.println(curDir);
     }
 
     private static void getSize() {
